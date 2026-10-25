@@ -29,11 +29,12 @@ jobs:
           cache: npm
           cache-dependency-path: package-lock.json
 
-      - name: Set up Java 17
+      - name: Set up Java 21
+        id: setup-java
         uses: actions/setup-java@v6
         with:
           distribution: temurin
-          java-version: '17'
+          java-version: '21'
           cache: gradle
           cache-dependency-path: android/gradle/wrapper/gradle-wrapper.properties
 
@@ -41,6 +42,15 @@ jobs:
         uses: android-actions/setup-android@v4
         with:
           packages: 'platform-tools platforms;android-35 build-tools;35.0.0'
+
+      - name: Verify Java and Gradle JVM
+        working-directory: android
+        env:
+          JAVA_HOME: ${{ steps.setup-java.outputs.path }}
+        run: |
+          java -version
+          chmod +x gradlew
+          ./gradlew --version
 
       - name: Install npm dependencies
         run: npm ci
@@ -53,9 +63,10 @@ jobs:
 
       - name: Build debug APK
         working-directory: android
+        env:
+          JAVA_HOME: ${{ steps.setup-java.outputs.path }}
         run: |
-          chmod +x gradlew
-          ./gradlew --no-daemon assembleDebug
+          ./gradlew --no-daemon -Dorg.gradle.java.home="$JAVA_HOME" assembleDebug
 
       - name: Upload debug APK
         uses: actions/upload-artifact@v7
