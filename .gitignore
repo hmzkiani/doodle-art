@@ -1,0 +1,27 @@
+# Node dependencies and Vite output
+node_modules/
+/dist/
+/.vite/
+
+# Android local configuration and generated build files
+/android/local.properties
+/android/.gradle/
+/android/.idea/
+/android/**/build/
+/android/**/.externalNativeBuild/
+/android/**/.cxx/
+/android/**/captures/
+/android/*.iml
+
+# Local environment files and signing credentials
+.env
+.env.*
+!.env.example
+**/*.jks
+**/*.keystore
+**/*.p12
+**/*.pfx
+**/key.properties
+**/keystore.properties
+**/signing.properties
+**/google-services.json
