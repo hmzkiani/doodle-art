@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Doodle Land</string>
+    <string name="title_activity_main">Doodle Land</string>
+    <string name="package_name">com.hamza.doodleland</string>
+    <string name="custom_url_scheme">com.hamza.doodleland</string>
+</resources>
